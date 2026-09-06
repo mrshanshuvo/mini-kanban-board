@@ -148,7 +148,7 @@ export default function DashboardPage() {
                           <h3 className="font-extrabold text-lg text-[#1c2724] group-hover:text-[#0d8b75] transition-colors line-clamp-1">
                             {board.title}
                           </h3>
-                          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#dcfce7] text-[#0d8b75] border border-[#bbf7d0] flex-shrink-0">
+                          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#dcfce7] text-[#0d8b75] border border-[#bbf7d0] shrink-0">
                             Owner
                           </span>
                         </div>
@@ -205,7 +205,7 @@ export default function DashboardPage() {
                             <h3 className="font-extrabold text-lg text-[#1c2724] group-hover:text-[#0d8b75] transition-colors line-clamp-1">
                               {board.title}
                             </h3>
-                            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#dcfce7] text-[#0d8b75] border border-[#bbf7d0] flex-shrink-0">
+                            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#dcfce7] text-[#0d8b75] border border-[#bbf7d0] shrink-0">
                               {memberRecord?.role || "MEMBER"}
                             </span>
                           </div>
