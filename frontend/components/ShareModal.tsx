@@ -62,24 +62,31 @@ export function ShareModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
-      <div className="w-full max-w-lg bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-2xl border border-zinc-200 dark:border-zinc-800">
-        <div className="flex items-center justify-between pb-4 border-b border-zinc-100 dark:border-zinc-800">
-          <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-            <h3 className="font-bold text-lg text-zinc-900 dark:text-white">
-              Share Board
-            </h3>
+      <div className="relative w-full max-w-lg p-6 bg-white rounded-3xl shadow-xl border border-[#e1eae5]">
+        <div className="flex items-center justify-between pb-4 border-b border-[#edf3f0]">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-2xl bg-[#edf3f0] text-[#0d8b75]">
+              <Users className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-extrabold text-base text-[#1c2724]">
+                Share Board
+              </h3>
+              <p className="text-xs text-[#64746f]">
+                Invite colleagues with View or Edit privileges
+              </p>
+            </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
+            className="p-1 rounded-full text-[#82928c] hover:text-[#1c2724] cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {error && (
-          <div className="mt-4 p-3 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 flex items-center gap-2 text-red-600 dark:text-red-400 text-xs">
+          <div className="mt-4 p-3 rounded-2xl bg-rose-50 border border-rose-200 flex items-center gap-2 text-rose-700 text-xs">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{error}</span>
           </div>
@@ -87,87 +94,94 @@ export function ShareModal({
 
         {/* Share Form */}
         <form onSubmit={handleShare} className="mt-4 space-y-3">
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">
-              Invite User By Email
-            </label>
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="collaborator@example.com"
-                  className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value as "EDITOR" | "VIEWER")}
-                className="px-3 py-2 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                <option value="EDITOR">Can Edit</option>
-                <option value="VIEWER">Can View</option>
-              </select>
-
-              <button
-                type="submit"
-                disabled={loading || !email.trim()}
-                className="px-4 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm disabled:opacity-50 flex items-center gap-1.5"
-              >
-                <UserPlus className="w-4 h-4" />
-                <span>{loading ? "Adding..." : "Invite"}</span>
-              </button>
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <Mail className="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#82928c]" />
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="colleague@example.com"
+                className="w-full pl-9 pr-3.5 py-2 text-xs rounded-2xl border border-[#d8e4df] bg-[#edf3f0]/40 text-[#1c2724] focus:outline-none focus:ring-2 focus:ring-[#0d8b75]"
+              />
             </div>
+
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value as "EDITOR" | "VIEWER")}
+              className="px-3 py-2 text-xs font-semibold rounded-2xl border border-[#d8e4df] bg-white text-[#1c2724] focus:outline-none focus:ring-2 focus:ring-[#0d8b75]"
+            >
+              <option value="EDITOR">Editor</option>
+              <option value="VIEWER">Viewer</option>
+            </select>
+
+            <button
+              type="submit"
+              disabled={loading || !email.trim()}
+              className="px-4 py-2 text-xs font-semibold rounded-full bg-[#0d8b75] hover:bg-[#0a7361] text-white shadow-xs disabled:opacity-50 flex items-center gap-1.5 transition-all cursor-pointer"
+            >
+              <UserPlus className="w-3.5 h-3.5" />
+              <span>{loading ? "Adding..." : "Invite"}</span>
+            </button>
           </div>
         </form>
 
         {/* Member List */}
         <div className="mt-6">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-3">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-[#64746f] mb-3">
             People with access ({board.members.length + 1})
           </h4>
 
-          <div className="space-y-2 max-h-60 overflow-y-auto">
+          <div className="space-y-2.5 max-h-60 overflow-y-auto">
             {/* Owner item */}
-            <div className="p-3 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold text-zinc-900 dark:text-white flex items-center gap-1.5">
-                  <span>{board.owner.name}</span>
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300">
-                    Owner
-                  </span>
-                </p>
-                <p className="text-xs text-zinc-500">{board.owner.email}</p>
+            <div className="p-3.5 rounded-2xl bg-[#edf3f0]/50 border border-[#e1eae5] flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-[#0d8b75] text-white font-bold text-xs flex items-center justify-center">
+                  {board.owner.name.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <p className="text-xs font-extrabold text-[#1c2724] flex items-center gap-2">
+                    <span>{board.owner.name}</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#dcfce7] text-[#0d8b75] border border-[#bbf7d0]">
+                      Owner
+                    </span>
+                  </p>
+                  <p className="text-[11px] text-[#64746f]">
+                    {board.owner.email}
+                  </p>
+                </div>
               </div>
-              <Shield className="w-4 h-4 text-indigo-500" />
+              <Shield className="w-4 h-4 text-[#0d8b75]" />
             </div>
 
             {/* Members */}
             {board.members.map((member) => (
               <div
                 key={member.id}
-                className="p-3 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between"
+                className="p-3.5 rounded-2xl bg-white border border-[#e1eae5] flex items-center justify-between shadow-2xs"
               >
-                <div>
-                  <p className="text-sm font-semibold text-zinc-900 dark:text-white flex items-center gap-1.5">
-                    <span>{member.user.name}</span>
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
-                      {member.role}
-                    </span>
-                  </p>
-                  <p className="text-xs text-zinc-500">{member.user.email}</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#edf3f0] text-[#0d8b75] font-bold text-xs flex items-center justify-center border border-[#d8e4df]">
+                    {member.user.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="text-xs font-extrabold text-[#1c2724] flex items-center gap-2">
+                      <span>{member.user.name}</span>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#edf3f0] text-[#3d504a] border border-[#d8e4df]">
+                        {member.role}
+                      </span>
+                    </p>
+                    <p className="text-[11px] text-[#64746f]">
+                      {member.user.email}
+                    </p>
+                  </div>
                 </div>
 
                 <button
                   onClick={() => handleRemoveMember(member.userId)}
                   title="Remove access"
-                  className="p-1.5 text-zinc-400 hover:text-red-600 rounded-lg transition-colors"
+                  className="p-1.5 text-[#82928c] hover:text-rose-600 rounded-full hover:bg-rose-50 transition-colors cursor-pointer"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
