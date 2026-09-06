@@ -294,7 +294,7 @@ export default function BoardDetailPage({
           {/* Action and Filter Controls */}
           <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
             {/* Search */}
-            <div className="relative flex-1 sm:flex-initial min-w-[140px]">
+            <div className="relative flex-1 sm:flex-initial min-w-35">
               <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#82928c]" />
               <input
                 type="text"

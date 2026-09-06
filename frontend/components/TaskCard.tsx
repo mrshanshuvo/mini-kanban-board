@@ -158,7 +158,7 @@ export function TaskCard({
                 <div className="w-4 h-4 rounded-full bg-[#0d8b75] text-white flex items-center justify-center text-[9px] font-bold">
                   {task.assignee.name.charAt(0).toUpperCase()}
                 </div>
-                <span className="truncate max-w-[75px] text-[10px]">
+                <span className="truncate max-w-18.75 text-[10px]">
                   {task.assignee.name.split(" ")[0]}
                 </span>
               </div>
