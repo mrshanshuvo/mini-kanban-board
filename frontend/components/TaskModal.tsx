@@ -90,7 +90,7 @@ export function TaskModal({
 
         {error && (
           <div className="mt-4 p-3 rounded-2xl bg-rose-50 border border-rose-200 flex items-center gap-2 text-rose-700 text-xs">
-            <AlertCircle className="w-4 h-4 flex-shrink-0" />
+            <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
         )}
@@ -125,7 +125,7 @@ export function TaskModal({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#4d5f59] mb-1.5 flex items-center gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#4d5f59] mb-1.5 flex items-center gap-1.5">
                 <Flag className="w-3.5 h-3.5 text-[#0d8b75]" />
                 <span>Priority</span>
               </label>
@@ -142,7 +142,7 @@ export function TaskModal({
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#4d5f59] mb-1.5 flex items-center gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#4d5f59] mb-1.5 flex items-center gap-1.5">
                 <UserCheck className="w-3.5 h-3.5 text-[#0d8b75]" />
                 <span>Assignee</span>
               </label>

@@ -94,9 +94,7 @@ export function KanbanColumn({
       <div className="px-2 py-2 flex items-center justify-between">
         <div className="flex items-center gap-2 flex-1 min-w-0 mr-2">
           {/* Glowing Status Dot */}
-          <span
-            className={`w-2.5 h-2.5 rounded-full ${theme.dot} flex-shrink-0`}
-          />
+          <span className={`w-2.5 h-2.5 rounded-full ${theme.dot} shrink-0`} />
 
           {isEditingTitle ? (
             <form onSubmit={handleTitleSubmit} className="flex-1">
@@ -176,7 +174,7 @@ export function KanbanColumn({
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className={`flex-1 px-1 py-2 overflow-y-auto min-h-[160px] rounded-2xl transition-colors ${
+            className={`flex-1 px-1 py-2 overflow-y-auto min-h-40 rounded-2xl transition-colors ${
               snapshot.isDraggingOver ? "bg-white/40" : ""
             }`}
           >

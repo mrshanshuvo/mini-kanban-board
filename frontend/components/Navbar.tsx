@@ -48,7 +48,7 @@ export function Navbar({ onNewBoardClick }: { onNewBoardClick?: () => void }) {
                   <div className="w-5 h-5 rounded-full bg-[#dcfce7] text-[#0d8b75] flex items-center justify-center font-bold text-[10px]">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
-                  <span className="max-w-[80px] sm:max-w-none truncate">
+                  <span className="max-w-20 sm:max-w-none truncate">
                     {user.name.split(" ")[0]}
                   </span>
                 </div>
