@@ -63,8 +63,8 @@ export default function DashboardPage() {
 
   if (isLoading || !user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen flex items-center justify-center bg-[#edf3f0]">
+        <div className="w-8 h-8 border-3 border-[#0d8b75] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -73,17 +73,17 @@ export default function DashboardPage() {
   const sharedBoards = boards.filter((b) => b.ownerId !== user.id);
 
   return (
-    <div className="min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950">
+    <div className="min-h-screen flex flex-col bg-[#edf3f0]">
       <Navbar onNewBoardClick={() => setIsModalOpen(true)} />
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
         {/* Header section */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-3xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1c2724] tracking-tight">
               Workspaces & Boards
             </h1>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+            <p className="text-xs text-[#64746f] mt-1">
               Select a board to organize workflow columns and drag-and-drop
               tasks.
             </p>
@@ -91,7 +91,7 @@ export default function DashboardPage() {
 
           <button
             onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-md shadow-indigo-600/20 active:scale-95 transition-all text-sm self-start sm:self-auto"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#fec84b] hover:bg-[#fdb022] text-[#1c2724] text-xs font-bold shadow-xs active:scale-95 transition-all w-full sm:w-auto cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Create Board</span>
@@ -104,7 +104,7 @@ export default function DashboardPage() {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="h-44 rounded-2xl bg-zinc-200/60 dark:bg-zinc-900 animate-pulse"
+                className="h-44 rounded-3xl bg-white/70 animate-pulse border border-[#e1eae5]"
               ></div>
             ))}
           </div>
@@ -113,23 +113,23 @@ export default function DashboardPage() {
             {/* Owned Boards */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Kanban className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                <h2 className="text-lg font-bold text-zinc-900 dark:text-white">
+                <Kanban className="w-5 h-5 text-[#0d8b75]" />
+                <h2 className="text-base font-extrabold text-[#1c2724]">
                   Your Boards
                 </h2>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-semibold">
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#dcfce7] text-[#0d8b75] font-bold border border-[#bbf7d0]">
                   {ownedBoards.length}
                 </span>
               </div>
 
               {ownedBoards.length === 0 ? (
-                <div className="p-8 text-center rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-800 bg-white/40 dark:bg-zinc-900/40">
-                  <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-4">
+                <div className="p-8 text-center rounded-3xl border-2 border-dashed border-[#cbdcd5] bg-white/60">
+                  <p className="text-[#64746f] text-sm mb-4">
                     You haven&apos;t created any boards yet.
                   </p>
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#fec84b] hover:bg-[#fdb022] text-[#1c2724] text-xs font-bold shadow-xs cursor-pointer"
                   >
                     <Plus className="w-4 h-4" />
                     Create Your First Board
@@ -141,23 +141,23 @@ export default function DashboardPage() {
                     <Link
                       key={board.id}
                       href={`/boards/${board.id}`}
-                      className="group relative p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/5 transition-all flex flex-col justify-between"
+                      className="group relative p-6 rounded-3xl bg-white border border-[#e1eae5] hover:border-[#0d8b75]/40 hover:shadow-lg transition-all flex flex-col justify-between"
                     >
                       <div>
                         <div className="flex items-start justify-between gap-3 mb-2">
-                          <h3 className="font-bold text-lg text-zinc-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                          <h3 className="font-extrabold text-lg text-[#1c2724] group-hover:text-[#0d8b75] transition-colors line-clamp-1">
                             {board.title}
                           </h3>
-                          <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/50 dark:border-indigo-800/50 flex-shrink-0">
+                          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#dcfce7] text-[#0d8b75] border border-[#bbf7d0] flex-shrink-0">
                             Owner
                           </span>
                         </div>
-                        <p className="text-sm text-zinc-500 dark:text-zinc-400 line-clamp-2 mb-4">
+                        <p className="text-xs text-[#64746f] line-clamp-2 mb-4">
                           {board.description || "No description provided."}
                         </p>
                       </div>
 
-                      <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between text-xs text-zinc-500">
+                      <div className="pt-4 border-t border-[#edf3f0] flex items-center justify-between text-xs text-[#82928c]">
                         <div className="flex items-center gap-3">
                           <span className="flex items-center gap-1">
                             <Users className="w-3.5 h-3.5" />
@@ -176,15 +176,15 @@ export default function DashboardPage() {
               )}
             </div>
 
-            {/* Shared with Me */}
+            {/* Shared With You */}
             {sharedBoards.length > 0 && (
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <Shield className="w-5 h-5 text-violet-600 dark:text-violet-400" />
-                  <h2 className="text-lg font-bold text-zinc-900 dark:text-white">
-                    Shared with You
+                  <Users className="w-5 h-5 text-[#0d8b75]" />
+                  <h2 className="text-base font-extrabold text-[#1c2724]">
+                    Shared With You
                   </h2>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-semibold">
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#dcfce7] text-[#0d8b75] font-bold border border-[#bbf7d0]">
                     {sharedBoards.length}
                   </span>
                 </div>
@@ -198,25 +198,25 @@ export default function DashboardPage() {
                       <Link
                         key={board.id}
                         href={`/boards/${board.id}`}
-                        className="group relative p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-violet-500/50 hover:shadow-xl hover:shadow-violet-500/5 transition-all flex flex-col justify-between"
+                        className="group relative p-6 rounded-3xl bg-white border border-[#e1eae5] hover:border-[#0d8b75]/40 hover:shadow-lg transition-all flex flex-col justify-between"
                       >
                         <div>
                           <div className="flex items-start justify-between gap-3 mb-2">
-                            <h3 className="font-bold text-lg text-zinc-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-1">
+                            <h3 className="font-extrabold text-lg text-[#1c2724] group-hover:text-[#0d8b75] transition-colors line-clamp-1">
                               {board.title}
                             </h3>
-                            <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-200/50 dark:border-violet-800/50 flex-shrink-0">
+                            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#dcfce7] text-[#0d8b75] border border-[#bbf7d0] flex-shrink-0">
                               {memberRecord?.role || "MEMBER"}
                             </span>
                           </div>
-                          <p className="text-sm text-zinc-500 dark:text-zinc-400 line-clamp-2 mb-4">
+                          <p className="text-xs text-[#64746f] line-clamp-2 mb-4">
                             {board.description || "No description provided."}
                           </p>
                         </div>
 
-                        <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between text-xs text-zinc-500">
+                        <div className="pt-4 border-t border-[#edf3f0] flex items-center justify-between text-xs text-[#82928c]">
                           <span>Owner: {board.owner.name}</span>
-                          <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-violet-600 group-hover:translate-x-1 transition-all" />
+                          <ArrowRight className="w-4 h-4 text-[#82928c] group-hover:text-[#0d8b75] group-hover:translate-x-1 transition-all" />
                         </div>
                       </Link>
                     );
@@ -230,18 +230,18 @@ export default function DashboardPage() {
         {/* Create Board Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
-            <div className="w-full max-w-md bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-2xl border border-zinc-200 dark:border-zinc-800">
-              <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-2">
+            <div className="w-full max-w-md bg-white rounded-3xl p-6 shadow-xl border border-[#e1eae5]">
+              <h3 className="text-xl font-extrabold text-[#1c2724] mb-1">
                 Create New Board
               </h3>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-6">
+              <p className="text-xs text-[#64746f] mb-6">
                 Start with default To Do, In Progress, and Done workflow
                 columns.
               </p>
 
               <form onSubmit={handleCreateBoard} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#4d5f59] mb-1.5">
                     Board Title
                   </label>
                   <input
@@ -250,12 +250,12 @@ export default function DashboardPage() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="e.g. Website Redesign"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-[#d8e4df] bg-[#edf3f0]/40 text-[#1c2724] text-xs focus:outline-none focus:ring-2 focus:ring-[#0d8b75]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#4d5f59] mb-1.5">
                     Description (Optional)
                   </label>
                   <textarea
@@ -263,22 +263,22 @@ export default function DashboardPage() {
                     onChange={(e) => setDescription(e.target.value)}
                     rows={3}
                     placeholder="Brief objective of this board..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-[#d8e4df] bg-[#edf3f0]/40 text-[#1c2724] text-xs focus:outline-none focus:ring-2 focus:ring-[#0d8b75] resize-none"
                   />
                 </div>
 
-                <div className="flex items-center justify-end gap-3 pt-4">
+                <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#edf3f0]">
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 rounded-xl text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                    className="px-4 py-2 rounded-full text-xs font-semibold text-[#4d5f59] border border-[#d8e4df] hover:bg-zinc-100 cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={creating || !title.trim()}
-                    className="px-4 py-2 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm disabled:opacity-50"
+                    className="px-5 py-2 rounded-full text-xs font-semibold bg-[#0d8b75] hover:bg-[#0a7361] text-white shadow-xs disabled:opacity-50 cursor-pointer transition-all"
                   >
                     {creating ? "Creating..." : "Create Board"}
                   </button>
