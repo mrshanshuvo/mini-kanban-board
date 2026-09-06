@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateColumnDto, UpdateColumnDto } from './dto/column.dto';
 
@@ -20,7 +24,9 @@ export class ColumnsService {
     const member = board.members.find((m: any) => m.userId === userId);
 
     if (!isOwner && (!member || member.role === 'VIEWER')) {
-      throw new ForbiddenException('You do not have permission to modify this board');
+      throw new ForbiddenException(
+        'You do not have permission to modify this board',
+      );
     }
 
     return board;

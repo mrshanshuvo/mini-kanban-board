@@ -133,9 +133,13 @@ export class TasksService {
       // Check access on source board
       const sourceBoard = task.column.board;
       const isOwnerSource = sourceBoard.ownerId === userId;
-      const memberSource = sourceBoard.members.find((m: any) => m.userId === userId);
+      const memberSource = sourceBoard.members.find(
+        (m: any) => m.userId === userId,
+      );
       if (!isOwnerSource && (!memberSource || memberSource.role === 'VIEWER')) {
-        throw new ForbiddenException('You do not have permission to modify tasks on this board');
+        throw new ForbiddenException(
+          'You do not have permission to modify tasks on this board',
+        );
       }
 
       // 2. Fetch target column with its board to ensure it's in the same board / accessible
@@ -148,7 +152,9 @@ export class TasksService {
       }
 
       if (targetColumn.boardId !== sourceBoard.id) {
-        throw new BadRequestException('Cannot move tasks across different boards');
+        throw new BadRequestException(
+          'Cannot move tasks across different boards',
+        );
       }
 
       // 3. Fetch all other tasks currently in the target column (excluding current task if moving in same column)
@@ -161,7 +167,10 @@ export class TasksService {
       });
 
       // 4. Calculate new stable order index
-      const targetIndex = Math.max(0, Math.min(dto.newPositionIndex, existingTasksInTarget.length));
+      const targetIndex = Math.max(
+        0,
+        Math.min(dto.newPositionIndex, existingTasksInTarget.length),
+      );
       let newOrder = 1000;
 
       if (existingTasksInTarget.length === 0) {
@@ -173,7 +182,8 @@ export class TasksService {
         newOrder = firstOrder - 1000;
       } else if (targetIndex >= existingTasksInTarget.length) {
         // Moving to very bottom of target column
-        const lastOrder = existingTasksInTarget[existingTasksInTarget.length - 1].order;
+        const lastOrder =
+          existingTasksInTarget[existingTasksInTarget.length - 1].order;
         newOrder = lastOrder + 1000;
       } else {
         // Moving between two items

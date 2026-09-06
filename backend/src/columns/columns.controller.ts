@@ -42,7 +42,10 @@ export class ColumnsController {
 
   @ApiOperation({ summary: 'Delete a column and its tasks' })
   @Delete('columns/:id')
-  deleteColumn(@Param('id') columnId: string, @CurrentUser('id') userId: string) {
+  deleteColumn(
+    @Param('id') columnId: string,
+    @CurrentUser('id') userId: string,
+  ) {
     return this.columnsService.deleteColumn(columnId, userId);
   }
 }

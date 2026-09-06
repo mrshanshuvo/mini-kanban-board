@@ -2,7 +2,6 @@ import {
   Injectable,
   NotFoundException,
   ForbiddenException,
-  ConflictException,
   BadRequestException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
@@ -17,10 +16,7 @@ export class BoardsService {
     // Return all boards where user is either the owner or a member
     return this.prisma.board.findMany({
       where: {
-        OR: [
-          { ownerId: userId },
-          { members: { some: { userId } } },
-        ],
+        OR: [{ ownerId: userId }, { members: { some: { userId } } }],
       },
       include: {
         owner: {
@@ -104,7 +100,9 @@ export class BoardsService {
     const member = board.members.find((m: any) => m.userId === userId);
 
     if (!isOwner && !member) {
-      throw new ForbiddenException('You do not have permission to view this board');
+      throw new ForbiddenException(
+        'You do not have permission to view this board',
+      );
     }
 
     return {
@@ -127,7 +125,9 @@ export class BoardsService {
     const member = board.members.find((m: any) => m.userId === userId);
 
     if (!isOwner && (!member || member.role === 'VIEWER')) {
-      throw new ForbiddenException('You do not have permission to update this board');
+      throw new ForbiddenException(
+        'You do not have permission to update this board',
+      );
     }
 
     return this.prisma.board.update({
@@ -149,7 +149,9 @@ export class BoardsService {
     }
 
     if (board.ownerId !== userId) {
-      throw new ForbiddenException('Only the board owner can delete this board');
+      throw new ForbiddenException(
+        'Only the board owner can delete this board',
+      );
     }
 
     return this.prisma.board.delete({
@@ -169,10 +171,14 @@ export class BoardsService {
 
     // Only owner or existing editor can share board
     const isOwner = board.ownerId === currentUserId;
-    const currentMember = board.members.find((m: any) => m.userId === currentUserId);
+    const currentMember = board.members.find(
+      (m: any) => m.userId === currentUserId,
+    );
 
     if (!isOwner && (!currentMember || currentMember.role !== 'EDITOR')) {
-      throw new ForbiddenException('You do not have permission to share this board');
+      throw new ForbiddenException(
+        'You do not have permission to share this board',
+      );
     }
 
     const targetUser = await this.prisma.user.findUnique({
@@ -180,7 +186,9 @@ export class BoardsService {
     });
 
     if (!targetUser) {
-      throw new NotFoundException(`User with email "${dto.email}" does not exist`);
+      throw new NotFoundException(
+        `User with email "${dto.email}" does not exist`,
+      );
     }
 
     if (targetUser.id === board.ownerId) {
@@ -219,7 +227,11 @@ export class BoardsService {
     });
   }
 
-  async removeMember(boardId: string, currentUserId: string, targetUserId: string) {
+  async removeMember(
+    boardId: string,
+    currentUserId: string,
+    targetUserId: string,
+  ) {
     const board = await this.prisma.board.findUnique({
       where: { id: boardId },
     });
@@ -230,7 +242,9 @@ export class BoardsService {
 
     // Owner can remove anyone, or a user can remove themselves (leave board)
     if (board.ownerId !== currentUserId && currentUserId !== targetUserId) {
-      throw new ForbiddenException('You do not have permission to remove this member');
+      throw new ForbiddenException(
+        'You do not have permission to remove this member',
+      );
     }
 
     return this.prisma.boardMember.delete({

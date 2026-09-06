@@ -21,7 +21,9 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 export class BoardsController {
   constructor(private boardsService: BoardsService) {}
 
-  @ApiOperation({ summary: 'List all boards owned by or shared with current user' })
+  @ApiOperation({
+    summary: 'List all boards owned by or shared with current user',
+  })
   @Get()
   getUserBoards(@CurrentUser('id') userId: string) {
     return this.boardsService.getUserBoards(userId);
@@ -35,7 +37,10 @@ export class BoardsController {
 
   @ApiOperation({ summary: 'Get full board details with columns and tasks' })
   @Get(':id')
-  getBoardById(@Param('id') boardId: string, @CurrentUser('id') userId: string) {
+  getBoardById(
+    @Param('id') boardId: string,
+    @CurrentUser('id') userId: string,
+  ) {
     return this.boardsService.getBoardById(boardId, userId);
   }
 
@@ -72,6 +77,10 @@ export class BoardsController {
     @CurrentUser('id') currentUserId: string,
     @Param('targetUserId') targetUserId: string,
   ) {
-    return this.boardsService.removeMember(boardId, currentUserId, targetUserId);
+    return this.boardsService.removeMember(
+      boardId,
+      currentUserId,
+      targetUserId,
+    );
   }
 }

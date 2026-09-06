@@ -1,4 +1,10 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { TaskPriority } from '@prisma/client';
 
@@ -58,7 +64,8 @@ export class MoveTaskDto {
   targetColumnId: string;
 
   @ApiProperty({
-    description: '0-based index in the destination column list where the task is placed',
+    description:
+      '0-based index in the destination column list where the task is placed',
     example: 0,
   })
   @IsNumber()

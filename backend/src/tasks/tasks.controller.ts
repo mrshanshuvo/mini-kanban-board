@@ -30,7 +30,9 @@ export class TasksController {
     return this.tasksService.createTask(columnId, userId, dto);
   }
 
-  @ApiOperation({ summary: 'Update task properties (title, description, priority, assignee)' })
+  @ApiOperation({
+    summary: 'Update task properties (title, description, priority, assignee)',
+  })
   @Patch('tasks/:id')
   updateTask(
     @Param('id') taskId: string,
