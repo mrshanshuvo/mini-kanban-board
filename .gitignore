@@ -19,6 +19,7 @@ out/
 dist/
 */dist/
 **/dist/
+*.tsbuildinfo
 
 # Logs
 logs
