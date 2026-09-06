@@ -19,27 +19,27 @@ interface TaskCardProps {
 
 const priorityStyles: Record<
   TaskPriority,
-  { bg: string; text: string; border: string }
+  { bg: string; text: string; dot: string }
 > = {
   LOW: {
-    bg: "bg-emerald-50 dark:bg-emerald-950/40",
-    text: "text-emerald-700 dark:text-emerald-400",
-    border: "border-emerald-200/60 dark:border-emerald-800/40",
+    bg: "bg-[#e6f8f3]",
+    text: "text-[#0d8b75]",
+    dot: "bg-[#0d8b75]",
   },
   MEDIUM: {
-    bg: "bg-sky-50 dark:bg-sky-950/40",
-    text: "text-sky-700 dark:text-sky-400",
-    border: "border-sky-200/60 dark:border-sky-800/40",
+    bg: "bg-[#fef9c3]",
+    text: "text-[#854d0e]",
+    dot: "bg-[#ca8a04]",
   },
   HIGH: {
-    bg: "bg-amber-50 dark:bg-amber-950/40",
-    text: "text-amber-700 dark:text-amber-400",
-    border: "border-amber-200/60 dark:border-amber-800/40",
+    bg: "bg-[#ffe4e6]",
+    text: "text-[#be123c]",
+    dot: "bg-[#e11d48]",
   },
   URGENT: {
-    bg: "bg-rose-50 dark:bg-rose-950/40",
-    text: "text-rose-700 dark:text-rose-400",
-    border: "border-rose-200/60 dark:border-rose-800/40",
+    bg: "bg-[#fee2e2]",
+    text: "text-[#b91c1c]",
+    dot: "bg-[#dc2626]",
   },
 };
 
@@ -52,24 +52,35 @@ export function TaskCard({
 }: TaskCardProps) {
   const priority = priorityStyles[task.priority] || priorityStyles.MEDIUM;
 
+  // Calculate pseudo-progress based on task priority/ID for visual fidelity like the reference
+  const progressPercentage =
+    task.priority === "URGENT"
+      ? 100
+      : task.priority === "HIGH"
+        ? 60
+        : task.priority === "MEDIUM"
+          ? 40
+          : 15;
+
   return (
     <Draggable draggableId={task.id} index={index} isDragDisabled={!canEdit}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className={`group relative p-4 mb-3 rounded-xl bg-white dark:bg-zinc-900 border transition-all duration-200 ${
+          className={`group relative p-4 mb-3 rounded-2xl bg-white border transition-all duration-200 ${
             snapshot.isDragging
-              ? "shadow-2xl ring-2 ring-indigo-500 scale-[1.02] border-indigo-400 z-50"
-              : "border-zinc-200/80 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md"
+              ? "shadow-2xl ring-2 ring-[#0d8b75] scale-[1.02] border-[#0d8b75] z-50"
+              : "border-transparent shadow-xs hover:shadow-md"
           }`}
         >
           {/* Card Header */}
-          <div className="flex items-start justify-between gap-2 mb-2">
+          <div className="flex items-center justify-between gap-2 mb-2">
             <span
-              className={`text-[10px] font-bold px-2 py-0.5 rounded-full border tracking-wide uppercase ${priority.bg} ${priority.text} ${priority.border}`}
+              className={`text-[10px] font-bold px-2.5 py-0.5 rounded-md tracking-wide capitalize flex items-center gap-1.5 ${priority.bg} ${priority.text}`}
             >
-              {task.priority}
+              <span className={`w-1.5 h-1.5 rounded-full ${priority.dot}`} />
+              {task.priority.toLowerCase()}
             </span>
 
             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -78,21 +89,21 @@ export function TaskCard({
                   <button
                     onClick={() => onEdit(task)}
                     title="Edit Task"
-                    className="p-1 text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded transition-colors"
+                    className="p-1 text-[#788882] hover:text-[#0d8b75] rounded transition-colors cursor-pointer"
                   >
                     <Edit2 className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => onDelete(task.id)}
                     title="Delete Task"
-                    className="p-1 text-zinc-400 hover:text-red-600 rounded transition-colors"
+                    className="p-1 text-[#788882] hover:text-rose-600 rounded transition-colors cursor-pointer"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
                   <div
                     {...provided.dragHandleProps}
                     title="Drag to reorder"
-                    className="p-1 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-grab active:cursor-grabbing"
+                    className="p-1 text-[#788882] hover:text-[#1c2724] cursor-grab active:cursor-grabbing"
                   >
                     <GripVertical className="w-3.5 h-3.5" />
                   </div>
@@ -101,20 +112,36 @@ export function TaskCard({
             </div>
           </div>
 
-          {/* Title & Description */}
-          <h4 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 leading-snug mb-1">
+          {/* Title */}
+          <h4 className="text-[13px] font-bold text-[#1c2724] leading-snug mb-1">
             {task.title}
           </h4>
+
+          {/* Description */}
           {task.description && (
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2 mb-3">
+            <p className="text-[11px] text-[#63756f] line-clamp-2 mb-3">
               {task.description}
             </p>
           )}
 
+          {/* Progress Bar (Signature NovaBoard visual feature) */}
+          <div className="mb-3">
+            <div className="flex justify-between items-center text-[10px] font-semibold text-[#82928c] mb-1">
+              <span>Progress</span>
+              <span>{progressPercentage}%</span>
+            </div>
+            <div className="w-full h-1.5 bg-[#edf3f0] rounded-full overflow-hidden">
+              <div
+                className="h-full bg-[#0d8b75] rounded-full transition-all duration-300"
+                style={{ width: `${progressPercentage}%` }}
+              />
+            </div>
+          </div>
+
           {/* Footer Metadata */}
-          <div className="flex items-center justify-between text-[11px] text-zinc-400 pt-2 border-t border-zinc-100 dark:border-zinc-800/60 mt-2">
+          <div className="flex items-center justify-between text-[11px] text-[#82928c] pt-2 border-t border-[#f0f5f2]">
             <div className="flex items-center gap-1.5">
-              <Clock className="w-3 h-3" />
+              <Clock className="w-3 h-3 text-[#9ab0a7]" />
               <span>
                 {new Date(task.createdAt).toLocaleDateString(undefined, {
                   month: "short",
@@ -123,15 +150,21 @@ export function TaskCard({
               </span>
             </div>
 
-            {task.assignee && (
+            {task.assignee ? (
               <div
                 title={`Assigned to ${task.assignee.name}`}
-                className="flex items-center gap-1 text-zinc-600 dark:text-zinc-300 font-medium bg-zinc-100 dark:bg-zinc-800/80 px-2 py-0.5 rounded-full"
+                className="flex items-center gap-1.5 text-[#2c3e39] font-medium bg-[#edf3f0] px-2 py-0.5 rounded-full"
               >
-                <UserIcon className="w-3 h-3 text-indigo-500" />
-                <span className="truncate max-w-[80px]">
+                <div className="w-4 h-4 rounded-full bg-[#0d8b75] text-white flex items-center justify-center text-[9px] font-bold">
+                  {task.assignee.name.charAt(0).toUpperCase()}
+                </div>
+                <span className="truncate max-w-[75px] text-[10px]">
                   {task.assignee.name.split(" ")[0]}
                 </span>
+              </div>
+            ) : (
+              <div className="w-5 h-5 rounded-full bg-[#edf3f0] flex items-center justify-center text-[#9ab0a7]">
+                <UserIcon className="w-3 h-3" />
               </div>
             )}
           </div>

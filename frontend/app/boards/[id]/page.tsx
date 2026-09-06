@@ -235,8 +235,8 @@ export default function BoardDetailPage({
 
   if (loading || !board) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-zinc-950">
-        <div className="w-8 h-8 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen flex items-center justify-center bg-[#edf3f0]">
+        <div className="w-8 h-8 border-3 border-[#0d8b75] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -255,36 +255,36 @@ export default function BoardDetailPage({
   }));
 
   return (
-    <div className="min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950 overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-[#edf3f0] overflow-x-hidden">
       <Navbar />
 
       {/* Board Sub-header */}
-      <div className="border-b border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm px-4 sm:px-6 lg:px-8 py-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+      <div className="border-b border-[#e1eae5] bg-[#edf3f0]/60 backdrop-blur-xs px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             <Link
               href="/"
-              className="p-2 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 transition-colors"
+              className="p-1.5 sm:p-2 rounded-2xl bg-white border border-[#e1eae5] hover:bg-[#f6f9f7] text-[#4b5d57] transition-colors shadow-2xs"
             >
               <ArrowLeft className="w-4 h-4" />
             </Link>
 
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl font-bold text-zinc-900 dark:text-white tracking-tight">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-base sm:text-xl font-extrabold text-[#1c2724] tracking-tight truncate">
                   {board.title}
                 </h1>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/50 dark:border-indigo-800/50">
+                <span className="text-[10px] sm:text-[11px] font-bold px-2 sm:px-2.5 py-0.5 rounded-full bg-[#dcfce7] text-[#0d8b75] border border-[#bbf7d0]">
                   {board.userRole}
                 </span>
                 {!canEdit && (
-                  <span className="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400 font-medium">
+                  <span className="flex items-center gap-1 text-[10px] sm:text-xs text-amber-700 font-semibold bg-amber-50 px-2 py-0.5 rounded-full">
                     <Lock className="w-3 h-3" /> Read Only
                   </span>
                 )}
               </div>
               {board.description && (
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                <p className="text-[11px] sm:text-xs text-[#64746f] mt-0.5 truncate">
                   {board.description}
                 </p>
               )}
@@ -292,26 +292,25 @@ export default function BoardDetailPage({
           </div>
 
           {/* Action and Filter Controls */}
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
             {/* Search */}
-            <div className="relative">
-              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+            <div className="relative flex-1 sm:flex-initial min-w-[140px]">
+              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#82928c]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search tasks..."
-                className="pl-8 pr-3 py-1.5 text-xs rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Search task..."
+                className="w-full sm:w-auto pl-8 pr-3 py-1.5 sm:py-2 text-xs rounded-full border border-[#d8e4df] bg-white text-[#1c2724] placeholder-[#82928c] shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#0d8b75]"
               />
             </div>
 
             {/* Priority Filter */}
             <div className="flex items-center gap-1">
-              <Filter className="w-3.5 h-3.5 text-zinc-400" />
               <select
                 value={priorityFilter}
                 onChange={(e) => setPriorityFilter(e.target.value)}
-                className="px-2.5 py-1.5 text-xs rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="px-2.5 sm:px-3 py-1.5 sm:py-2 text-xs font-medium rounded-full border border-[#d8e4df] bg-white text-[#1c2724] shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#0d8b75] cursor-pointer"
               >
                 <option value="ALL">All Priorities</option>
                 <option value="LOW">Low</option>
@@ -324,9 +323,9 @@ export default function BoardDetailPage({
             {/* Share Board Button */}
             <button
               onClick={() => setIsShareModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-200 shadow-sm transition-all"
+              className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-semibold rounded-full border border-[#d8e4df] bg-white hover:bg-[#f6f9f7] text-[#2c3e39] shadow-2xs transition-all cursor-pointer"
             >
-              <Share2 className="w-3.5 h-3.5 text-indigo-500" />
+              <Share2 className="w-3.5 h-3.5 text-[#0d8b75]" />
               <span>Share ({board.members.length + 1})</span>
             </button>
 
@@ -335,7 +334,7 @@ export default function BoardDetailPage({
               <button
                 onClick={handleDeleteBoard}
                 title="Delete Board"
-                className="p-2 text-zinc-400 hover:text-red-600 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                className="p-1.5 sm:p-2 text-[#788882] hover:text-rose-600 rounded-full hover:bg-rose-50 transition-colors cursor-pointer"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -345,13 +344,14 @@ export default function BoardDetailPage({
       </div>
 
       {/* Kanban Board Canvas */}
-      <main className="flex-1 overflow-x-auto p-6">
+      <main className="flex-1 w-full p-3 sm:p-5 lg:p-6 overflow-y-auto">
         <DragDropContext onDragEnd={handleDragEnd}>
-          <div className="flex items-start gap-6 h-[calc(100vh-180px)] min-w-max pb-4">
-            {filteredColumns.map((column) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 items-start gap-4 sm:gap-5 w-full pb-8">
+            {filteredColumns.map((column, index) => (
               <KanbanColumn
                 key={column.id}
                 column={column}
+                columnIndex={index}
                 canEdit={canEdit}
                 onAddTask={handleOpenAddTask}
                 onEditTask={handleOpenEditTask}
@@ -363,33 +363,34 @@ export default function BoardDetailPage({
 
             {/* Add Column Button */}
             {canEdit && (
-              <div className="flex-shrink-0 w-80">
+              <div className="w-full min-h-[140px]">
                 {isNewColumnOpen ? (
                   <form
                     onSubmit={handleCreateColumn}
-                    className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-md space-y-3"
+                    className="p-4 rounded-3xl bg-white border border-[#e1eae5] shadow-sm space-y-3"
                   >
                     <input
                       type="text"
                       autoFocus
-                      required
+                      placeholder="Column title (e.g. In Review)"
                       value={newColumnTitle}
                       onChange={(e) => setNewColumnTitle(e.target.value)}
-                      placeholder="Column title (e.g. Blocked)"
-                      className="w-full px-3 py-2 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-3.5 py-2 text-xs rounded-xl border border-[#d8e4df] bg-[#edf3f0]/50 text-[#1c2724] focus:outline-none focus:ring-2 focus:ring-[#0d8b75]"
                     />
                     <div className="flex items-center gap-2">
                       <button
                         type="submit"
-                        disabled={!newColumnTitle.trim()}
-                        className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white disabled:opacity-50"
+                        className="px-4 py-1.5 text-xs font-semibold rounded-full bg-[#0d8b75] hover:bg-[#0a7361] text-white shadow-xs cursor-pointer"
                       >
                         Add Column
                       </button>
                       <button
                         type="button"
-                        onClick={() => setIsNewColumnOpen(false)}
-                        className="px-3 py-1.5 text-xs font-medium rounded-lg text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                        onClick={() => {
+                          setIsNewColumnOpen(false);
+                          setNewColumnTitle("");
+                        }}
+                        className="px-3 py-1.5 text-xs font-semibold rounded-full border border-[#d8e4df] hover:bg-zinc-100 text-[#4b5d57] cursor-pointer"
                       >
                         Cancel
                       </button>
@@ -398,7 +399,7 @@ export default function BoardDetailPage({
                 ) : (
                   <button
                     onClick={() => setIsNewColumnOpen(true)}
-                    className="w-full py-4 px-4 rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-800 hover:border-indigo-500 hover:bg-indigo-50/20 dark:hover:bg-indigo-950/10 text-zinc-500 hover:text-indigo-600 dark:hover:text-indigo-400 font-semibold text-sm flex items-center justify-center gap-2 transition-all"
+                    className="w-full py-8 px-4 rounded-3xl border-2 border-dashed border-[#cbdcd5] hover:border-[#0d8b75] bg-white/40 hover:bg-white/90 text-[#4b5d57] hover:text-[#0d8b75] font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-2xs"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Add Column</span>
