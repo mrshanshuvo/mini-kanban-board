@@ -45,43 +45,43 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-4 bg-zinc-50 dark:bg-zinc-950">
+    <div className="min-h-screen flex flex-col justify-center items-center px-4 bg-[#edf3f0]">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 font-bold text-2xl tracking-tight mb-3"
+            className="inline-flex items-center gap-3 font-bold text-2xl tracking-tight mb-3 group"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
+            <div className="w-11 h-11 rounded-2xl bg-[#0d8b75] flex items-center justify-center text-white shadow-sm shadow-[#0d8b75]/25 group-hover:scale-105 transition-transform">
               <Kanban className="w-6 h-6" />
             </div>
-            <span className="bg-gradient-to-r from-zinc-900 to-zinc-600 dark:from-white dark:to-zinc-400 bg-clip-text text-transparent font-extrabold">
-              FlowBoard
+            <span className="text-[#1c2724] font-extrabold text-2xl tracking-tight">
+              NovaBoard
             </span>
           </Link>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
+          <h1 className="text-2xl font-extrabold tracking-tight text-[#1c2724]">
             Create your account
           </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+          <p className="text-xs text-[#64746f] mt-1">
             Start collaborating with your team today
           </p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-xl shadow-zinc-200/50 dark:shadow-none border border-zinc-200 dark:border-zinc-800">
+        <div className="bg-white p-8 rounded-3xl shadow-sm border border-[#e1eae5]">
           {error && (
-            <div className="mb-6 p-3.5 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 flex items-center gap-3 text-red-600 dark:text-red-400 text-sm">
-              <AlertCircle className="w-5 h-5 flex-shrink-0" />
+            <div className="mb-6 p-3.5 rounded-2xl bg-rose-50 border border-rose-200 flex items-center gap-3 text-rose-700 text-xs">
+              <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#4d5f59] mb-1.5">
                 Full Name
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#82928c]">
                   <User className="w-4 h-4" />
                 </div>
                 <input
@@ -90,17 +90,17 @@ export default function RegisterPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Alex Rivera"
-                  className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/50 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+                  className="w-full pl-10 pr-3.5 py-2.5 rounded-2xl border border-[#d8e4df] bg-[#edf3f0]/40 text-[#1c2724] placeholder:text-[#9ab0a7] focus:outline-none focus:ring-2 focus:ring-[#0d8b75] transition-all text-xs"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#4d5f59] mb-1.5">
                 Email Address
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#82928c]">
                   <Mail className="w-4 h-4" />
                 </div>
                 <input
@@ -109,27 +109,27 @@ export default function RegisterPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="alex@example.com"
-                  className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/50 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+                  className="w-full pl-10 pr-3.5 py-2.5 rounded-2xl border border-[#d8e4df] bg-[#edf3f0]/40 text-[#1c2724] placeholder:text-[#9ab0a7] focus:outline-none focus:ring-2 focus:ring-[#0d8b75] transition-all text-xs"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#4d5f59] mb-1.5">
                 Password
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#82928c]">
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
                   type="password"
                   required
-                  minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="At least 6 characters"
-                  className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/50 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+                  minLength={6}
+                  className="w-full pl-10 pr-3.5 py-2.5 rounded-2xl border border-[#d8e4df] bg-[#edf3f0]/40 text-[#1c2724] placeholder:text-[#9ab0a7] focus:outline-none focus:ring-2 focus:ring-[#0d8b75] transition-all text-xs"
                 />
               </div>
             </div>
@@ -137,20 +137,20 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.99] text-white font-medium shadow-md shadow-indigo-600/20 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+              className="w-full mt-2 py-3 px-4 rounded-full bg-[#0d8b75] hover:bg-[#0a7361] active:scale-[0.99] text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer"
             >
-              <span>{loading ? "Creating account..." : "Create Account"}</span>
+              <span>{loading ? "Creating Account..." : "Create Account"}</span>
               {!loading && <ArrowRight className="w-4 h-4" />}
             </button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800 text-center text-sm text-zinc-500">
+          <div className="mt-6 pt-6 border-t border-[#edf3f0] text-center text-xs text-[#64746f]">
             Already have an account?{" "}
             <Link
               href="/login"
-              className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+              className="font-bold text-[#0d8b75] hover:underline"
             >
-              Sign in
+              Sign in instead
             </Link>
           </div>
         </div>
