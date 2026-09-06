@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User, api } from '../lib/api';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { User, api } from "../lib/api";
 
 interface AuthContextType {
   user: User | null;
@@ -20,32 +20,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setToken(null);
     setUser(null);
   };
 
   const login = (newToken: string, newUser: User) => {
-    localStorage.setItem('token', newToken);
-    localStorage.setItem('user', JSON.stringify(newUser));
+    localStorage.setItem("token", newToken);
+    localStorage.setItem("user", JSON.stringify(newUser));
     setToken(newToken);
     setUser(newUser);
   };
 
   const refreshUser = async () => {
     try {
-      const res = await api.get('/api/auth/me');
+      const res = await api.get("/api/auth/me");
       setUser(res.data);
-      localStorage.setItem('user', JSON.stringify(res.data));
+      localStorage.setItem("user", JSON.stringify(res.data));
     } catch {
       logout();
     }
   };
 
   useEffect(() => {
-    const savedToken = localStorage.getItem('token');
-    const savedUser = localStorage.getItem('user');
+    const savedToken = localStorage.getItem("token");
+    const savedUser = localStorage.getItem("user");
 
     if (savedToken && savedUser) {
       try {
@@ -63,7 +63,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, token, isLoading, login, logout, refreshUser }}>
+    <AuthContext.Provider
+      value={{ user, token, isLoading, login, logout, refreshUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -72,7 +74,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }

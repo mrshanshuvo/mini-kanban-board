@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { useAuth } from '../context/auth-context';
-import { Kanban, LogOut, User as UserIcon, Plus } from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import { useAuth } from "../context/auth-context";
+import { Kanban, LogOut, User as UserIcon, Plus } from "lucide-react";
 
 export function Navbar({ onNewBoardClick }: { onNewBoardClick?: () => void }) {
   const { user, logout } = useAuth();
@@ -11,7 +11,10 @@ export function Navbar({ onNewBoardClick }: { onNewBoardClick?: () => void }) {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5 font-bold text-lg tracking-tight group">
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 font-bold text-lg tracking-tight group"
+        >
           <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
             <Kanban className="w-5 h-5" />
           </div>

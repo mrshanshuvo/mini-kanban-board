@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Task, TaskPriority, BoardMember, User } from '../lib/api';
-import { X, Calendar, Flag, UserCheck, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Task, TaskPriority, BoardMember, User } from "../lib/api";
+import { X, Flag, UserCheck, AlertCircle } from "lucide-react";
 
 interface TaskModalProps {
   task: Task | null;
@@ -25,26 +25,26 @@ export function TaskModal({
   onClose,
   onSave,
 }: TaskModalProps) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [priority, setPriority] = useState<TaskPriority>('MEDIUM');
-  const [assigneeId, setAssigneeId] = useState<string>('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState<TaskPriority>("MEDIUM");
+  const [assigneeId, setAssigneeId] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (task) {
       setTitle(task.title);
-      setDescription(task.description || '');
+      setDescription(task.description || "");
       setPriority(task.priority);
-      setAssigneeId(task.assigneeId || '');
+      setAssigneeId(task.assigneeId || "");
     } else {
-      setTitle('');
-      setDescription('');
-      setPriority('MEDIUM');
-      setAssigneeId('');
+      setTitle("");
+      setDescription("");
+      setPriority("MEDIUM");
+      setAssigneeId("");
     }
-    setError('');
+    setError("");
   }, [task, isOpen]);
 
   if (!isOpen) return null;
@@ -54,7 +54,7 @@ export function TaskModal({
     if (!title.trim()) return;
 
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       await onSave({
@@ -65,7 +65,7 @@ export function TaskModal({
       });
       onClose();
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to save task');
+      setError(err.response?.data?.message || "Failed to save task");
     } finally {
       setLoading(false);
     }
@@ -78,7 +78,7 @@ export function TaskModal({
       <div className="w-full max-w-lg bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-2xl border border-zinc-200 dark:border-zinc-800">
         <div className="flex items-center justify-between pb-4 border-b border-zinc-100 dark:border-zinc-800">
           <h3 className="font-bold text-lg text-zinc-900 dark:text-white">
-            {task ? 'Edit Task' : 'Create New Task'}
+            {task ? "Edit Task" : "Create New Task"}
           </h3>
           <button
             onClick={onClose}
@@ -174,7 +174,7 @@ export function TaskModal({
               disabled={loading || !title.trim()}
               className="px-4 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm disabled:opacity-50"
             >
-              {loading ? 'Saving...' : task ? 'Update Task' : 'Create Task'}
+              {loading ? "Saving..." : task ? "Update Task" : "Create Task"}
             </button>
           </div>
         </form>

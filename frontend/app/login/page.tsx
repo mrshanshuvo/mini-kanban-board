@@ -1,32 +1,32 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { api } from '../../lib/api';
-import { useAuth } from '../../context/auth-context';
-import { Kanban, ArrowRight, Lock, Mail, AlertCircle } from 'lucide-react';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { api } from "../../lib/api";
+import { useAuth } from "../../context/auth-context";
+import { Kanban, ArrowRight, Lock, Mail, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
-      const res = await api.post('/api/auth/login', { email, password });
+      const res = await api.post("/api/auth/login", { email, password });
       login(res.data.accessToken, res.data.user);
-      router.push('/');
+      router.push("/");
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Invalid email or password');
+      setError(err.response?.data?.message || "Invalid email or password");
     } finally {
       setLoading(false);
     }
@@ -36,7 +36,10 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col justify-center items-center px-4 bg-zinc-50 dark:bg-zinc-950">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 font-bold text-2xl tracking-tight mb-3">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 font-bold text-2xl tracking-tight mb-3"
+          >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
               <Kanban className="w-6 h-6" />
             </div>
@@ -44,8 +47,12 @@ export default function LoginPage() {
               FlowBoard
             </span>
           </Link>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Welcome back</h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Sign in to manage your boards and workflows</p>
+          <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
+            Welcome back
+          </h1>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+            Sign in to manage your boards and workflows
+          </p>
         </div>
 
         <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-xl shadow-zinc-200/50 dark:shadow-none border border-zinc-200 dark:border-zinc-800">
@@ -100,14 +107,17 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full mt-2 py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.99] text-white font-medium shadow-md shadow-indigo-600/20 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
             >
-              <span>{loading ? 'Signing in...' : 'Sign In'}</span>
+              <span>{loading ? "Signing in..." : "Sign In"}</span>
               {!loading && <ArrowRight className="w-4 h-4" />}
             </button>
           </form>
 
           <div className="mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800 text-center text-sm text-zinc-500">
-            Don&apos;t have an account?{' '}
-            <Link href="/register" className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/register"
+              className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+            >
               Create an account
             </Link>
           </div>
@@ -115,10 +125,30 @@ export default function LoginPage() {
 
         {/* Demo credentials tip */}
         <div className="mt-6 p-4 rounded-xl bg-zinc-100 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-400">
-          <p className="font-semibold text-zinc-800 dark:text-zinc-200 mb-1">Demo Credentials:</p>
+          <p className="font-semibold text-zinc-800 dark:text-zinc-200 mb-1">
+            Demo Credentials:
+          </p>
           <div className="space-y-0.5">
-            <p>Owner: <code className="text-indigo-600 dark:text-indigo-400">alex@example.com</code> / <code className="text-indigo-600 dark:text-indigo-400">password123</code></p>
-            <p>Editor: <code className="text-indigo-600 dark:text-indigo-400">sarah@example.com</code> / <code className="text-indigo-600 dark:text-indigo-400">password123</code></p>
+            <p>
+              Owner:{" "}
+              <code className="text-indigo-600 dark:text-indigo-400">
+                alex@example.com
+              </code>{" "}
+              /{" "}
+              <code className="text-indigo-600 dark:text-indigo-400">
+                password123
+              </code>
+            </p>
+            <p>
+              Editor:{" "}
+              <code className="text-indigo-600 dark:text-indigo-400">
+                sarah@example.com
+              </code>{" "}
+              /{" "}
+              <code className="text-indigo-600 dark:text-indigo-400">
+                password123
+              </code>
+            </p>
           </div>
         </div>
       </div>

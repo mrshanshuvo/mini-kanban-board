@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "FlowBoard - Mini Kanban Board",
-  description: "Modern Full-Stack Kanban Application with drag-and-drop workflow management",
+  description:
+    "Modern Full-Stack Kanban Application with drag-and-drop workflow management",
 };
 
 export default function RootLayout({
@@ -25,10 +26,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 min-h-screen flex flex-col`}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 min-h-screen flex flex-col`}
+      >
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

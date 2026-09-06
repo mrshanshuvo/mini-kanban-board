@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Column, Task } from '../lib/api';
-import { TaskCard } from './TaskCard';
-import { Droppable } from '@hello-pangea/dnd';
-import { Plus, MoreVertical, Trash2, Edit2 } from 'lucide-react';
+import React, { useState } from "react";
+import { Column, Task } from "../lib/api";
+import { TaskCard } from "./TaskCard";
+import { Droppable } from "@hello-pangea/dnd";
+import { Plus, MoreVertical, Trash2, Edit2 } from "lucide-react";
 
 interface KanbanColumnProps {
   column: Column;
@@ -54,7 +54,7 @@ export function KanbanColumn({
           ) : (
             <div
               onClick={() => canEdit && setIsEditingTitle(true)}
-              className={`flex items-center gap-2 flex-1 truncate ${canEdit ? 'cursor-pointer hover:opacity-80' : ''}`}
+              className={`flex items-center gap-2 flex-1 truncate ${canEdit ? "cursor-pointer hover:opacity-80" : ""}`}
             >
               <h3 className="text-sm font-bold text-zinc-800 dark:text-zinc-200 truncate">
                 {column.title}
@@ -78,7 +78,10 @@ export function KanbanColumn({
 
             {menuOpen && (
               <>
-                <div className="fixed inset-0 z-20" onClick={() => setMenuOpen(false)} />
+                <div
+                  className="fixed inset-0 z-20"
+                  onClick={() => setMenuOpen(false)}
+                />
                 <div className="absolute right-0 mt-1 w-36 py-1 z-30 bg-white dark:bg-zinc-800 rounded-xl shadow-lg border border-zinc-200 dark:border-zinc-700 text-xs">
                   <button
                     onClick={() => {
@@ -114,7 +117,9 @@ export function KanbanColumn({
             ref={provided.innerRef}
             {...provided.droppableProps}
             className={`flex-1 p-3 overflow-y-auto min-h-[150px] transition-colors ${
-              snapshot.isDraggingOver ? 'bg-indigo-50/40 dark:bg-indigo-950/20' : ''
+              snapshot.isDraggingOver
+                ? "bg-indigo-50/40 dark:bg-indigo-950/20"
+                : ""
             }`}
           >
             {column.tasks.map((task, index) => (

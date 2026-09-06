@@ -1,17 +1,17 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
 api.interceptors.request.use((config) => {
-  if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('token');
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -22,13 +22,15 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (typeof window !== 'undefined' && error.response?.status === 401) {
+    if (typeof window !== "undefined" && error.response?.status === 401) {
       // If unauthorized, clear token
-      const isAuthRoute = window.location.pathname.startsWith('/login') || window.location.pathname.startsWith('/register');
+      const isAuthRoute =
+        window.location.pathname.startsWith("/login") ||
+        window.location.pathname.startsWith("/register");
       if (!isAuthRoute) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        window.location.href = '/login';
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
       }
     }
     return Promise.reject(error);
@@ -42,8 +44,8 @@ export interface User {
   createdAt?: string;
 }
 
-export type BoardRole = 'OWNER' | 'EDITOR' | 'VIEWER';
-export type TaskPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
+export type BoardRole = "OWNER" | "EDITOR" | "VIEWER";
+export type TaskPriority = "LOW" | "MEDIUM" | "HIGH" | "URGENT";
 
 export interface Task {
   id: string;

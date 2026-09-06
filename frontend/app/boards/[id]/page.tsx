@@ -1,27 +1,30 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState, use } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '../../../context/auth-context';
-import { Navbar } from '../../../components/Navbar';
-import { KanbanColumn } from '../../../components/KanbanColumn';
-import { TaskModal } from '../../../components/TaskModal';
-import { ShareModal } from '../../../components/ShareModal';
-import { api, Board, Column, Task, TaskPriority } from '../../../lib/api';
-import { DragDropContext, DropResult } from '@hello-pangea/dnd';
+import React, { useEffect, useState, use } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../../../context/auth-context";
+import { Navbar } from "../../../components/Navbar";
+import { KanbanColumn } from "../../../components/KanbanColumn";
+import { TaskModal } from "../../../components/TaskModal";
+import { ShareModal } from "../../../components/ShareModal";
+import { api, Board, Task, TaskPriority } from "../../../lib/api";
+import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import {
   ArrowLeft,
   Plus,
   Share2,
   Lock,
   Trash2,
-  Users,
   Search,
   Filter,
-} from 'lucide-react';
-import Link from 'next/link';
+} from "lucide-react";
+import Link from "next/link";
 
-export default function BoardDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default function BoardDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const resolvedParams = use(params);
   const boardId = resolvedParams.id;
 
@@ -30,8 +33,8 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
 
   const [board, setBoard] = useState<Board | null>(null);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [priorityFilter, setPriorityFilter] = useState<string>('ALL');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [priorityFilter, setPriorityFilter] = useState<string>("ALL");
 
   // Modals state
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -39,7 +42,7 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
   const [selectedColumnId, setSelectedColumnId] = useState<string | null>(null);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [isNewColumnOpen, setIsNewColumnOpen] = useState(false);
-  const [newColumnTitle, setNewColumnTitle] = useState('');
+  const [newColumnTitle, setNewColumnTitle] = useState("");
 
   const fetchBoard = async () => {
     try {
@@ -49,7 +52,7 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
     } catch (err: any) {
       console.error(err);
       if (err.response?.status === 403 || err.response?.status === 404) {
-        router.push('/');
+        router.push("/");
       }
     } finally {
       setLoading(false);
@@ -58,7 +61,7 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
 
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push('/login');
+      router.push("/login");
       return;
     }
     if (user && boardId) {
@@ -66,7 +69,7 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
     }
   }, [user, authLoading, boardId]);
 
-  const canEdit = board?.userRole === 'OWNER' || board?.userRole === 'EDITOR';
+  const canEdit = board?.userRole === "OWNER" || board?.userRole === "EDITOR";
 
   // Drag and Drop handler with optimistic UI updates
   const handleDragEnd = async (result: DropResult) => {
@@ -82,18 +85,28 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
       return;
     }
 
-    const sourceColIndex = board.columns.findIndex((c) => c.id === source.droppableId);
-    const destColIndex = board.columns.findIndex((c) => c.id === destination.droppableId);
+    const sourceColIndex = board.columns.findIndex(
+      (c) => c.id === source.droppableId,
+    );
+    const destColIndex = board.columns.findIndex(
+      (c) => c.id === destination.droppableId,
+    );
 
     if (sourceColIndex === -1 || destColIndex === -1) return;
 
     // Optimistically update frontend state
     const newColumns = [...board.columns];
-    const sourceCol = { ...newColumns[sourceColIndex], tasks: [...newColumns[sourceColIndex].tasks] };
+    const sourceCol = {
+      ...newColumns[sourceColIndex],
+      tasks: [...newColumns[sourceColIndex].tasks],
+    };
     const destCol =
       sourceColIndex === destColIndex
         ? sourceCol
-        : { ...newColumns[destColIndex], tasks: [...newColumns[destColIndex].tasks] };
+        : {
+            ...newColumns[destColIndex],
+            tasks: [...newColumns[destColIndex].tasks],
+          };
 
     const [movedTask] = sourceCol.tasks.splice(source.index, 1);
     movedTask.columnId = destination.droppableId;
@@ -116,7 +129,7 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
         newPositionIndex: destination.index,
       });
     } catch (err) {
-      console.error('Movement failed, reverting state...', err);
+      console.error("Movement failed, reverting state...", err);
       fetchBoard(); // Revert to database state if server rejects
     }
   };
@@ -154,7 +167,7 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
 
   // Delete Task
   const handleDeleteTask = async (taskId: string) => {
-    if (!confirm('Are you sure you want to delete this task?')) return;
+    if (!confirm("Are you sure you want to delete this task?")) return;
     try {
       await api.delete(`/api/tasks/${taskId}`);
       fetchBoard();
@@ -172,7 +185,7 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
       await api.post(`/api/boards/${board.id}/columns`, {
         title: newColumnTitle.trim(),
       });
-      setNewColumnTitle('');
+      setNewColumnTitle("");
       setIsNewColumnOpen(false);
       fetchBoard();
     } catch (err) {
@@ -192,7 +205,10 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
 
   // Delete Column
   const handleDeleteColumn = async (columnId: string) => {
-    if (!confirm('Are you sure you want to delete this column and all its tasks?')) return;
+    if (
+      !confirm("Are you sure you want to delete this column and all its tasks?")
+    )
+      return;
     try {
       await api.delete(`/api/columns/${columnId}`);
       fetchBoard();
@@ -203,10 +219,15 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
 
   // Delete Board
   const handleDeleteBoard = async () => {
-    if (!confirm('Are you sure you want to delete this entire board? This action cannot be undone.')) return;
+    if (
+      !confirm(
+        "Are you sure you want to delete this entire board? This action cannot be undone.",
+      )
+    )
+      return;
     try {
       await api.delete(`/api/boards/${boardId}`);
-      router.push('/');
+      router.push("/");
     } catch (err) {
       console.error(err);
     }
@@ -227,7 +248,8 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
       const matchesSearch =
         task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         task.description?.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesPriority = priorityFilter === 'ALL' || task.priority === priorityFilter;
+      const matchesPriority =
+        priorityFilter === "ALL" || task.priority === priorityFilter;
       return matchesSearch && matchesPriority;
     }),
   }));
@@ -262,7 +284,9 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
                 )}
               </div>
               {board.description && (
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">{board.description}</p>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                  {board.description}
+                </p>
               )}
             </div>
           </div>
@@ -307,7 +331,7 @@ export default function BoardDetailPage({ params }: { params: Promise<{ id: stri
             </button>
 
             {/* Delete Board (Owner only) */}
-            {board.userRole === 'OWNER' && (
+            {board.userRole === "OWNER" && (
               <button
                 onClick={handleDeleteBoard}
                 title="Delete Board"

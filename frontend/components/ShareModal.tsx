@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
-import { api, Board } from '../lib/api';
-import { Users, UserPlus, Trash2, X, Shield, Mail, AlertCircle } from 'lucide-react';
+import React, { useState } from "react";
+import { api, Board } from "../lib/api";
+import {
+  Users,
+  UserPlus,
+  Trash2,
+  X,
+  Shield,
+  Mail,
+  AlertCircle,
+} from "lucide-react";
 
 interface ShareModalProps {
   board: Board;
@@ -9,11 +17,16 @@ interface ShareModalProps {
   onUpdated: () => void;
 }
 
-export function ShareModal({ board, isOpen, onClose, onUpdated }: ShareModalProps) {
-  const [email, setEmail] = useState('');
-  const [role, setRole] = useState<'EDITOR' | 'VIEWER'>('EDITOR');
+export function ShareModal({
+  board,
+  isOpen,
+  onClose,
+  onUpdated,
+}: ShareModalProps) {
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState<"EDITOR" | "VIEWER">("EDITOR");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   if (!isOpen) return null;
 
@@ -21,7 +34,7 @@ export function ShareModal({ board, isOpen, onClose, onUpdated }: ShareModalProp
     e.preventDefault();
     if (!email.trim()) return;
 
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
@@ -29,10 +42,10 @@ export function ShareModal({ board, isOpen, onClose, onUpdated }: ShareModalProp
         email: email.trim(),
         role,
       });
-      setEmail('');
+      setEmail("");
       onUpdated();
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to share board');
+      setError(err.response?.data?.message || "Failed to share board");
     } finally {
       setLoading(false);
     }
@@ -43,7 +56,7 @@ export function ShareModal({ board, isOpen, onClose, onUpdated }: ShareModalProp
       await api.delete(`/api/boards/${board.id}/members/${userId}`);
       onUpdated();
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to remove member');
+      setError(err.response?.data?.message || "Failed to remove member");
     }
   };
 
@@ -53,7 +66,9 @@ export function ShareModal({ board, isOpen, onClose, onUpdated }: ShareModalProp
         <div className="flex items-center justify-between pb-4 border-b border-zinc-100 dark:border-zinc-800">
           <div className="flex items-center gap-2">
             <Users className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-            <h3 className="font-bold text-lg text-zinc-900 dark:text-white">Share Board</h3>
+            <h3 className="font-bold text-lg text-zinc-900 dark:text-white">
+              Share Board
+            </h3>
           </div>
           <button
             onClick={onClose}
@@ -93,7 +108,7 @@ export function ShareModal({ board, isOpen, onClose, onUpdated }: ShareModalProp
 
               <select
                 value={role}
-                onChange={(e) => setRole(e.target.value as 'EDITOR' | 'VIEWER')}
+                onChange={(e) => setRole(e.target.value as "EDITOR" | "VIEWER")}
                 className="px-3 py-2 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <option value="EDITOR">Can Edit</option>
@@ -106,7 +121,7 @@ export function ShareModal({ board, isOpen, onClose, onUpdated }: ShareModalProp
                 className="px-4 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm disabled:opacity-50 flex items-center gap-1.5"
               >
                 <UserPlus className="w-4 h-4" />
-                <span>{loading ? 'Adding...' : 'Invite'}</span>
+                <span>{loading ? "Adding..." : "Invite"}</span>
               </button>
             </div>
           </div>
